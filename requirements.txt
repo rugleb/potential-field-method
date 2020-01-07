@@ -1,0 +1,2 @@
+attrs==19.3.0
+marshmallow==3.3.0
