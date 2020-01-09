@@ -18,8 +18,8 @@ __all__ = (
 
 @attr.s(slots=True, frozen=True)
 class Point:
-    x: float = attr.ib()
-    y: float = attr.ib()
+    x: int = attr.ib()
+    y: int = attr.ib()
 
 
 @attr.s(slots=True, frozen=True)
@@ -46,8 +46,8 @@ class ExcludeSchema(Schema):
 
 
 class PointSchemaMixin:
-    x = fields.Float(required=True)
-    y = fields.Float(required=True)
+    x = fields.Int(required=True)
+    y = fields.Int(required=True)
 
 
 class PointSchema(PointSchemaMixin, ExcludeSchema):
