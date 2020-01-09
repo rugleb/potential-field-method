@@ -4,7 +4,7 @@ from typing import Any
 from marshmallow import ValidationError
 from shapely.geometry import Point, Polygon
 
-from project import (
+from pfm import (
     Point,
     PointSchema,
     Polygon,

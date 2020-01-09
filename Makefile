@@ -1,7 +1,7 @@
 PIP ?= pip
 PYTHON ?= python
 
-SOURCES = project
+SOURCES = pfm
 TESTS = tests
 
 install:
@@ -11,7 +11,7 @@ test:
 	$(PYTHON) -m unittest -qvb
 
 cov:
-	coverage run --source project -m unittest -qvb
+	coverage run --source pfm -m unittest -qvb
 	coverage report
 	coverage html -d coverage/html
 	coverage xml -o coverage/cobertura.xml
