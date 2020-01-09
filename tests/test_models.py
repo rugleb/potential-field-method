@@ -2,6 +2,7 @@ import unittest
 from typing import Any
 
 from marshmallow import ValidationError
+from shapely.geometry import Point, Polygon
 
 from project import (
     Point,
@@ -65,8 +66,8 @@ class PointSchemaTestCase(SchemaTestCase):
             self.assertDictEmpty(e.valid_data)
 
             messages = {
-                "x": ["Not a valid number."],
-                "y": ["Not a valid number."],
+                "x": ["Not a valid integer."],
+                "y": ["Not a valid integer."],
             }
             self.assertDictEqual(messages, e.messages)
 
@@ -78,28 +79,15 @@ class PolygonSchemaTestCase(SchemaTestCase):
         x, y = 10, 20
 
         data = {
-            "x": x,
-            "y": y,
             "vertices": [
-                {
-                    "x": x,
-                    "y": y,
-                },
+                {"x": x, "y": y},
+                {"x": x, "y": y},
+                {"x": x, "y": y},
             ],
         }
 
         polygon = self.schema.load(data)
         self.assertIsInstance(polygon, Polygon)
-
-        self.assertEqual(x, polygon.x)
-        self.assertEqual(y, polygon.y)
-
-        vertices = [
-            Point(x, y),
-        ]
-        self.assertEqual(polygon.vertices, vertices)
-
-        self.assertDictEqual(data, self.schema.dump(polygon))
 
     def test_with_empty_data(self) -> None:
         data = {}
@@ -110,16 +98,12 @@ class PolygonSchemaTestCase(SchemaTestCase):
             self.assertDictEmpty(e.valid_data)
 
             messages = {
-                "x": ["Missing data for required field."],
-                "y": ["Missing data for required field."],
                 "vertices": ["Missing data for required field."],
             }
             self.assertDictEqual(messages, e.messages)
 
     def test_with_invalid_data(self) -> None:
         data = {
-            "x": type,
-            "y": type,
             "vertices": {},
         }
 
@@ -129,8 +113,6 @@ class PolygonSchemaTestCase(SchemaTestCase):
             self.assertDictEmpty(e.valid_data)
 
             messages = {
-                "x": ["Not a valid number."],
-                "y": ["Not a valid number."],
                 "vertices": ["Invalid type."],
             }
             self.assertDictEqual(messages, e.messages)

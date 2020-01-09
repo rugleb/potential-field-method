@@ -1,10 +1,12 @@
 # pylint: disable=C0103,W0613,R0201
 
+from abc import ABC
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 import attr
 from marshmallow import EXCLUDE, Schema, fields, post_load
+from shapely import geometry
 
 __all__ = (
     "Point",
@@ -16,18 +18,31 @@ __all__ = (
 )
 
 
-@attr.s(slots=True, frozen=True)
-class Point:
-    x: int = attr.ib()
-    y: int = attr.ib()
+class Point(geometry.Point):
 
-    def coordinates(self) -> Tuple[int, int]:
-        return self.x, self.y
+    def __add__(self, other: geometry.Point) -> "Point":
+        x = self.x + other.x
+        y = self.y + other.y
+        return Point(x, y)
+
+    def __sub__(self, other: geometry.Point) -> "Point":
+        x = self.x - other.x
+        y = self.y - other.y
+        return Point(x, y)
+
+    def __mul__(self, other: float) -> "Point":
+        x = self.x * other
+        y = self.y * other
+        return Point(x, y)
+
+    def __truediv__(self, other: float) -> "Point":
+        x = self.x / other
+        y = self.y / other
+        return Point(x, y)
 
 
-@attr.s(slots=True, frozen=True)
-class Polygon(Point):
-    vertices: List[Point] = attr.ib()
+class Polygon(geometry.Polygon, ABC):  # pylint: disable=W0223
+    pass
 
 
 @attr.s(slots=True, frozen=True)
@@ -48,24 +63,26 @@ class ExcludeSchema(Schema):
         unknown = EXCLUDE
 
 
-class PointSchemaMixin:
+class PointSchema(ExcludeSchema):
     x = fields.Int(required=True)
     y = fields.Int(required=True)
 
-
-class PointSchema(PointSchemaMixin, ExcludeSchema):
-
     @post_load
     def release(self, data: Dict, **kwargs) -> Point:
-        return Point(**data)
+        x = data.pop("x")
+        y = data.pop("y")
+        return Point(x, y)
 
 
-class PolygonSchema(PointSchemaMixin, ExcludeSchema):
+class PolygonSchema(ExcludeSchema):
     vertices = fields.Nested(PointSchema, many=True, required=True)
 
     @post_load
     def release(self, data: Dict, **kwargs) -> Polygon:
-        return Polygon(**data)
+        coords = []
+        for point in data.pop("vertices"):
+            coords.append((point.x, point.y))
+        return Polygon(coords)
 
 
 class SpaceSchema(ExcludeSchema):
