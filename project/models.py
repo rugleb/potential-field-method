@@ -1,7 +1,7 @@
 # pylint: disable=C0103,W0613,R0201
 
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import attr
 from marshmallow import EXCLUDE, Schema, fields, post_load
@@ -20,6 +20,9 @@ __all__ = (
 class Point:
     x: int = attr.ib()
     y: int = attr.ib()
+
+    def coordinates(self) -> Tuple[int, int]:
+        return self.x, self.y
 
 
 @attr.s(slots=True, frozen=True)
