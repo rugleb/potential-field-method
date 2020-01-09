@@ -15,6 +15,41 @@ from project import (
 )
 
 
+class PointTestCase(unittest.TestCase):
+
+    def test_sum_method(self) -> None:
+        p1 = Point(10, 20)
+        p2 = Point(20, 30)
+
+        p3 = p1 + p2
+        self.assertEqual(p1.x + p2.x, p3.x)
+        self.assertEqual(p1.y + p2.y, p3.y)
+
+    def test_sub_method(self) -> None:
+        p1 = Point(10, 30)
+        p2 = Point(20, 30)
+
+        p3 = p1 - p2
+        self.assertEqual(p1.x - p2.x, p3.x)
+        self.assertEqual(p1.y - p2.y, p3.y)
+
+    def test_mul_method(self) -> None:
+        p1 = Point(5, 5)
+        scalar = 10
+
+        p2 = p1 * scalar
+        self.assertEqual(p1.x * scalar, p2.x)
+        self.assertEqual(p1.y * scalar, p2.y)
+
+    def test_div_method(self) -> None:
+        p1 = Point(5, 5)
+        scalar = 10
+
+        p2 = p1 / scalar
+        self.assertEqual(p1.x / scalar, p2.x)
+        self.assertEqual(p1.y / scalar, p2.y)
+
+
 class SchemaTestCase(unittest.TestCase):
 
     def assertDictEmpty(self, data: Any) -> None:
