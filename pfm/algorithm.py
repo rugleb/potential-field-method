@@ -53,7 +53,7 @@ class PathPlan:
 
 @attr.s(slots=True, frozen=True)
 class PotentialFieldMethod:
-    step: float = attr.ib(default=2)
+    step: float = attr.ib(default=1)
     kp: float = attr.ib(default=10.0)
     eta: float = attr.ib(default=200)
     r0: float = attr.ib(default=0.4)
