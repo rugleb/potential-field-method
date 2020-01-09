@@ -1,0 +1,4 @@
+attrs==19.3.0
+marshmallow==3.3.0
+numpy==1.18.1
+Shapely==1.6.4.post2
