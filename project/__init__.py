@@ -1,3 +1,4 @@
+from .algorithm import PathPlan, PotentialFieldMethod, Segment
 from .models import (
     Point,
     PointSchema,
@@ -14,4 +15,7 @@ __all__ = (
     "PolygonSchema",
     "Space",
     "SpaceSchema",
+    "Segment",
+    "PathPlan",
+    "PotentialFieldMethod",
 )
