@@ -1,7 +1,7 @@
 PIP ?= pip
 PYTHON ?= python
 
-SOURCES = pfm
+SOURCES = pfm examples main.py
 TESTS = tests
 
 install:
