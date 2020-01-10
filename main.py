@@ -5,9 +5,9 @@ def main() -> None:
     input_path = settings.DATA_DIR / "normally.json"
     space = Space.form_file(input_path)
     algorithm = PotentialFieldMethod()
-    plain = algorithm.solve(space)
+    plan = algorithm.solve(space)
     output_path = settings.ROOT_DIR / "solution.json"
-    plain.dump(output_path)
+    plan.dump(output_path)
 
 
 if __name__ == "__main__":
