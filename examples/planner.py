@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pfm import Space, PotentialFieldMethod
+from pfm import PotentialFieldMethod, Space
 
 DIR = Path(__file__).parent
 
