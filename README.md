@@ -14,7 +14,6 @@
 * [Path Planning of Mobile Robot Using FuzzyPotential Field Method](https://www.iasj.net/iasj?func=fulltext&aId=102712)
 * [An Improved Path Planning Method Based on Artificial Potential Field for a Mobile Robot](http://www.cit.iit.bas.bg/CIT_2015/v-15-2/13-2015-5-edited-md-1-Gotovo.pdf)
 * [Potential Field Methods and their inherent approaches for the path planning](http://www.arpnjournals.org/jeas/research_papers/rp_2016/jeas_0916_4988.pdf)
-* 
 
 ## License
 
